@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Tugas 05 - Layout Website</title>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+        padding: 30px;
+    }
+
+    .wrapper {
+        width: 800px;
+        margin: 0 auto;
+    }
+
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .box {
+        border: 2px solid #5b9bd5; 
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-size: 14px;
+    }
+
+    .mt-15 {
+        margin-top: 15px;
+    }
+
+    .nav-1 {
+        background-color: #d19f18; 
+        height: 30px;
+        border-bottom: none; 
+    }
+
+    .nav-2 {
+        background-color: #5c9acc; 
+        height: 45px;
+    }
+
+    .slider {
+        background-color: #ed7d31; 
+        height: 180px;
+    }
+
+    .col-left {
+        float: left;
+        width: 66%; 
+    }
+
+    .col-right {
+        float: right;
+        width: 32%;
+    }
+
+    .content-item {
+        background-color: #fed866; 
+        height: 150px;
+    }
+
+    .sidebar-1 {
+        background-color: #a9d18e; 
+        height: 232px; 
+    }
+
+    .sidebar-2 {
+        background-color: #a9d18e;
+        height: 233px; 
+    }
+
+    .footer-1 {
+        background-color: #c55a11; 
+        height: 140px;
+        border-bottom: none; 
+    }
+
+    .footer-2 {
+        background-color: #833c0c; 
+        height: 30px;
+    }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+    
+    <div class="box nav-1">Navigasi 1</div>
+    <div class="box nav-2">Navigasi 2</div>
+
+    <div class="box slider mt-15">Slider</div>
+
+    <div class="clearfix mt-15">
+        
+        <div class="col-left">
+            <div class="box content-item">Content 1</div>
+            <div class="box content-item mt-15">Content 2</div>
+            <div class="box content-item mt-15">Content 3</div>
+        </div>
+
+        <div class="col-right">
+            <div class="box sidebar-1">Sidebar 1</div>
+            <div class="box sidebar-2 mt-15">Sidebar 2</div>
+        </div>
+
+    </div>
+
+    <div class="mt-15">
+        <div class="box footer-1">Footer 1</div>
+        <div class="box footer-2">Footer 2</div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 06 - Pembuatan Javascript ke dalam HTML</title>
+    <style>
+        /* Dzul Ikram A.S. Sambaiyang   24.83.1130 */
+        
+        /* Tema */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1b2838; /* Background utama */
+            color: #c7d5e0;
+            padding: 10px;
+        }
+
+        /* Navigasi 1 (Atas Sekali) */
+        .nav1 { 
+            background-color: #171a21; 
+            color: #b8b6b4; 
+            padding: 8px; 
+            text-align: right; 
+            font-size: 12px;
+            border-bottom: 1px solid #101216;
+            margin-bottom: 5px;
+        }
+        .nav1 span { margin-right: 20px; cursor: pointer; }
+        .nav1 span:hover { color: white; }
+
+        /* Navigasi 2 (Menu Utama) */
+        .nav2 { 
+            background-color: #171a21; 
+            color: white; 
+            padding: 20px; 
+            text-align: left; 
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .nav2 a { color: #dcdedf; text-decoration: none; margin-right: 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .nav2 a:hover { color: white; }
+        
+        /* Slider (Banner Utama) */
+        .slider { 
+            background-color: #0b1119; 
+            height: 350px; 
+            display: flex; 
+            flex-direction: column;
+            align-items: flex-start; 
+            justify-content: flex-end; 
+            margin-bottom: 15px;
+            background-image: linear-gradient(to right, rgba(0,0,0,0.85), rgba(0,0,0,0.2)), url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_hero.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 40px;
+            border-radius: 4px;
+            border: 1px solid #233c51;
+        }
+
+        /* Kontainer Utama & Sidebar */
+        .wrapper {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .content-column {
+            flex: 3;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sidebar-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Blok Konten */
+        .block {
+            padding: 20px;
+            border: 1px solid #233c51;
+            background-color: #16202d;
+            border-radius: 4px;
+        }
+        
+        .game-grid {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .game-card {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            flex: 1;
+            border-radius: 4px;
+            transition: transform 0.2s;
+        }
+        .game-card:hover {
+            transform: scale(1.03);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .game-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .game-title { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+
+        /* Footer */
+        .footer1 { background-color: #171a21; padding: 40px; text-align: center; margin-top: 20px; color: #8f98a0; font-size: 13px; }
+        .footer2 { background-color: #000000; padding: 15px; text-align: center; font-size: 11px; color: #555; }
+
+        /* Elemen UI & Form */
+        input[type="text"], input[type="number"], select { 
+            background: #2a475e; 
+            border: 1px solid #3d6b8d; 
+            color: white; 
+            padding: 10px; 
+            margin: 10px 0; 
+            width: 100%; 
+            border-radius: 3px; 
+        }
+        button, input[type="button"] { 
+            background: linear-gradient(to bottom, #a4d007 5%, #536904 95%);
+            border: none;
+            color: #d2efa9;
+            padding: 10px 20px; 
+            cursor: pointer; 
+            font-weight: bold;
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+        button:hover { background: linear-gradient(to bottom, #bbf00e 5%, #6a8505 95%); color: white; }
+        hr { border: 0; border-top: 1px solid #233c51; margin: 15px 0; }
+        .price { color: #bbee11; font-weight: bold; background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 2px; }
+        
+        .btn-topup {
+            background: #2a475e;
+            color: #66c0f4;
+            padding: 5px 10px;
+            font-size: 11px;
+            margin-top: 10px;
+            border: 1px solid #3d6b8d;
+        }
+        .btn-topup:hover { background: #3d6b8d; color: white; }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        .tag {
+            background: #3d6b8d;
+            padding: 2px 8px;
+            font-size: 10px;
+            border-radius: 2px;
+            color: white;
+        }
+    </style>
+
+    <script>
+        // Variabel global
+        var saldo = 0;
+
+        // 1. Proses Latihan-18: Event Onload
+        function salamPembuka() {
+            console.log("Halaman Toko Game Berhasil Dimuat.");
+            // alert("Selamat Belajar Javascript di Toko Game!"); // Bisa diaktifkan jika ingin alert saat masuk
+        }
+
+        // 2. Proses Latihan-19: Confirmation Window
+        function konfirmasiBeli() {
+            var yakin = confirm("Apakah kamu yakin ingin membeli game ini?");
+            if (yakin) {
+                alert("Pembelian Berhasil! Game ditambahkan ke Library.");
+            } else {
+                alert("Pembelian dibatalkan.");
+            }
+        }
+
+        // 3. Proses Latihan-20: Dasar Aritmatika (Kalkulator)
+        function hitungEstimasi() {
+            var harga = document.getElementById("pilih_game").value;
+            var jumlah = document.getElementById("jumlah_beli").value;
+            
+            if (jumlah <= 0) {
+                document.getElementById("hasil_total").innerHTML = "<span style='color: #ff9900;'>Masukkan jumlah minimal 1!</span>";
+                return;
+            }
+
+            var total = harga * jumlah; // Perkalian
+            document.getElementById("hasil_total").innerHTML = "Total Simulasi: <span class='price'>Rp " + total.toLocaleString('id-ID') + "</span>";
+        }
+
+        // 4. Proses Latihan-23: Seleksi Kondisi (Ganjil Genap untuk Voucher)
+        function validasiVoucher() {
+            var kode = document.form_voucher.kode_input.value;
+            if(kode === "" || isNaN(kode)) {
+                document.getElementById("status_voucher").innerHTML = "<span style='color: #ff9900;'>Masukkan angka seri voucher!</span>";
+                return;
+            }
+            // Menggunakan modulo % (Latihan-23)
+            if(kode % 2 == 0) {
+                document.getElementById("status_voucher").innerHTML = "<span style='color: #a4d007;'>Voucher Valid! Diskon 50% Berhasil.</span>";
+            } else {
+                document.getElementById("status_voucher").innerHTML = "<span style='color: #ff4d4d;'>Maaf, Voucher Ganjil/Tidak Valid.</span>";
+            }
+        }
+
+        // 5. Proses Latihan-17: Prompt Input
+        function tambahSaldo() {
+            var input = prompt("Masukkan jumlah saldo yang ingin diisi:", "50000");
+            if (input != null && !isNaN(input) && input !== "") {
+                saldo += parseInt(input); // Penjumlahan
+                document.getElementById("saldo_display").innerHTML = "Rp " + saldo.toLocaleString('id-ID');
+                alert("Top Up Berhasil! Saldo Baru: Rp " + saldo.toLocaleString('id-ID'));
+            } else if (input != null) {
+                alert("Mohon masukkan angka yang valid!");
+            }
+        }
+    </script>
+</head>
+<body onload="salamPembuka()">
+
+    <!-- Navigasi 1 -->
+    <div class="nav1">
+        <span>Instal Steam</span>
+        <span>Masuk</span>
+        <span>Dukungan</span>
+    </div>
+
+    <!-- Navigasi 2 -->
+    <div class="nav2">
+        <a href="#">Toko</a>
+        <a href="#">Komunitas</a>
+        <a href="#">Tentang</a>
+        <a href="#">Kontak</a>
+    </div>
+
+    <!-- Banner Utama -->
+    <div class="slider">
+        <h2 style="font-size: 45px; color: white; margin-bottom: 10px; text-shadow: 2px 2px 8px #000;">Cyberpunk 2077</h2>
+        <p style="max-width: 450px; margin-bottom: 20px; text-shadow: 1px 1px 4px #000;">Jelajahi Night City dalam petualangan aksi dunia terbuka yang memukau.</p>
+        <button onclick="konfirmasiBeli()">BELI SEKARANG</button>
+    </div>
+
+    <div class="wrapper">
+        <!-- Kolom Konten (Kiri) -->
+        <div class="content-column">
+            <!-- Game Terlaris -->
+            <div class="block">
+                <h3>Sedang Tren</h3>
+                <div class="game-grid">
+                    <div class="game-card">
+                        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/header.jpg" alt="Elden Ring">
+                        <div class="game-title">ELDEN RING</div>
+                        <span class="price">Rp 599.000</span>
+                    </div>
+                    <div class="game-card">
+                        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/570/header.jpg" alt="Dota 2">
+                        <div class="game-title">DOTA 2</div>
+                        <span class="price">Gratis</span>
+                    </div>
+                    <div class="game-card">
+                        <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/271590/header.jpg" alt="GTA V">
+                        <div class="game-title">GTA V</div>
+                        <span class="price">Rp 401.000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rekomendasi Tags (Latihan-22: Looping) -->
+            <div class="block">
+                <h3>Kategori Populer</h3>
+                <p style="font-size: 12px; color: #8f98a0;">Kategori yang sering dicari hari ini:</p>
+                <div class="tag-list" id="tag_container">
+                    <script>
+                        // 6. Proses Latihan-22: Looping For
+                        var categories = ["Action", "RPG", "Adventure", "Strategy", "Indie", "Multiplayer", "Simulation", "Open World"];
+                        for(var i = 0; i < categories.length; i++) {
+                            document.write("<span class='tag'>" + categories[i] + "</span>");
+                        }
+                    </script>
+                </div>
+            </div>
+
+            <!-- Pusat Aktivasi Voucher -->
+            <div class="block">
+                <h3>Pusat Aktivasi Voucher</h3>
+                <p style="font-size: 13px; color: #8f98a0;">Masukkan kode seri angka voucher Anda.</p>
+                <form name="form_voucher" onsubmit="return false;">
+                    <input type="text" name="kode_input" placeholder="Contoh: 1024">
+                    <input type="button" value="Validasi Voucher" onclick="validasiVoucher()">
+                </form>
+                <p id="status_voucher" style="margin-top: 10px; font-weight: bold;"></p>
+            </div>
+        </div>
+
+        <!-- Kolom Sidebar (Kanan) -->
+        <div class="sidebar-column">
+            <!-- Profil Pengguna -->
+            <div class="block" style="background: linear-gradient(135deg, #21313e 0%, #16202d 100%);">
+                <h4>Profil Gamer</h4>
+                <hr>
+                <script>
+                    // Proses Latihan-17: Prompt
+                    var nama = prompt("Masukkan Nama Gamer Anda:", "Pemain_Baru");
+                    document.write("<p style='font-size: 12px;'>Selamat Datang Kembali,</p>");
+                    document.write("<h3 style='color: #66c0f4; margin: 5px 0;'>" + nama + "</h3>");
+                </script>
+                <div style="background: #101822; padding: 10px; border-radius: 4px; margin-top: 10px;">
+                    <p style="font-size: 11px; color: #8f98a0;">Saldo Dompet: <span class="price" id="saldo_display">Rp 0</span></p>
+                    <button class="btn-topup" onclick="tambahSaldo()">+ Top Up Saldo</button>
+                </div>
+            </div>
+            
+            <!-- Kalkulator Belanja -->
+            <div class="block">
+                <h4>Kalkulator Belanja</h4>
+                <hr>
+                <p style="font-size: 12px; margin-bottom: 5px;">Pilih Game:</p>
+                <select id="pilih_game">
+                    <option value="599000">Elden Ring (Rp 599k)</option>
+                    <option value="0">Dota 2 (Gratis)</option>
+                    <option value="401000">GTA V (Rp 401k)</option>
+                    <option value="759000">EA Sports FC 24 (Rp 759k)</option>
+                </select>
+                <p style="font-size: 12px; margin-bottom: 5px;">Jumlah:</p>
+                <input type="number" id="jumlah_beli" value="1" min="1">
+                <button onclick="hitungEstimasi()">Hitung Estimasi</button>
+                <p id="hasil_total" style="margin-top: 15px; font-size: 14px; font-weight: bold;"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer1">
+        <img src="https://store.cloudflare.steamstatic.com/public/images/footerLogo_valve_new.png" alt="Valve Logo" style="height: 25px; margin-bottom: 15px; filter: grayscale(1);">
+        <p>&copy; 2024 Valve Corporation. Seluruh hak cipta dilindungi undang-undang.</p>
+    </div>
+    
+    <div class="footer2">
+        Kebijakan Privasi | Hukum | Kontrak Pelanggan
+    </div>
+
+</body>
+</html>
